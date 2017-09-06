@@ -1,0 +1,40 @@
+/* 谷歌语音识别请求参数说明 */
+{
+    /* [必填]config向识别器提供如何处理请求的信息 */
+    "config": {
+        /* [必填]encoding设置发送的音频数据的编码 */
+        /* ENCODING_UNSPECIFIED 未标明 */
+        /* LINEAR16 未压缩的16位带符号小端采样（线性PCM）。这是使用异步语音识别时唯一可以使用的编码 */
+        /* FLAC 同步语音识别推荐编码，使用无损压缩，识别准确性不受有损编解码器的损害。相关文档：http：//flac.sourceforge.net/documentation.html。支持16位和24位采样。不支持STREAMINFO中的所有字段 */
+        /* MULAW 8位采样，使用G.711 PCMU / mu定律来压缩14位音频采样 */
+        /* AMR 自适应多速率窄带编解码器。sampleRate必须为8000 Hz */
+        /* AMR_WB 自适应多速率宽带编解码器。sampleRate必须为16000 Hz */
+        "encoding": enum,
+        
+        /* [必填]音频数据的采样率（以赫兹为单位）。有效值为：8000-48000。16000是最优的。为了获得最佳效果，请将音频源的采样率设置为16000 Hz。如果不可能，请使用音频源的原始采样率（而不是重新采样） */  
+        "sampleRate": number,
+        
+        /* [可选]提供的音频作为BCP-47语言标签的语言。示例："en-GB" https://www.rfc-editor.org/rfc/bcp/bcp47.txt如果省略，默认为"en-US"。有关当前支持的语言代码的列表，请参阅语言支持。*/
+        "languageCode": string,
+        
+        /* [可选]要返回的识别的最大数目。服务器可能返回少于设定值。有效值为0- 30。值为0或1将返回最大值1。如果省略，默认为1。*/
+        "maxAlternatives": number,
+        
+        /* [可选]如果设置为true，服务器将尝试过滤出敏感语言，用星号替换每个过滤字词中除了初始字符之外的所有字符，例如"f***（fuck）"。如果设置为false或省略，则不会过滤掉。*/
+        "profanityFilter": boolean,
+        
+        /* [可选]提供上下文以辅助语音识别的方法。 */
+        "speechContext": {
+            /* [可选]包含单词和短语提示的字符串列表，以便语音识别更有可能识别它们。这可以用于提高特定单词和短语的准确性，例如，如果特定命令通常由用户说出。这可以用于向识别器的词汇表添加附加单词。词组数<=500，总字符数<=10,000，每个词组字符数<=100 */
+            "phrases"：[string]，
+        }
+    },
+    
+    /* [必填]audio指定要识别的音频数据 */
+    "audio": {
+        /* [content和uri选填其一] 音频数据字节编码如RecognitionConfig。注意：与所有字节字段一样，protobuffers使用纯二进制表示，而JSON表示使用base64。一个base64编码的字符串。 */
+        "content": string,
+        /* [content和uri选填其一] 指向包含在中指定的音频数据字节的文件的URI RecognitionConfig。目前，仅支持Google Cloud Storage URI，必须以以下格式gs://bucket_name/object_name指定：（其他URI格式返回google.rpc.Code.INVALID_ARGUMENT）。有关更多信息，请参阅请求URI。 */
+        "uri": string,
+    }
+}

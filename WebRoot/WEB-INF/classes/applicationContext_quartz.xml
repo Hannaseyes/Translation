@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	">
+	<description>quartz配置文件</description>
+	<!-- spring3.2.4 集成quartz2.2配置 begin -->
+	
+	<!--  管理触发器，就相当于在java中使用Quartz代码中的调度器scheduler  -->
+	<!--  管理触发器，将lazy-init='false'那么容器启动就会执行调度程序-->
+	
+  
+	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="true" > 
+     <!-- <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+        <property name="triggers">  
+            <list>  
+               <!-- <ref bean="updateBalanceTrigger"/> -->
+            </list>  
+        </property>  
+    </bean>
+</beans>

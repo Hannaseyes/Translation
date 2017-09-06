@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.we.persistence.SwitchMapper">
+
+	<resultMap id="switchMap" type="java.util.HashMap">
+	  <result property="floatSwitch" column="floatSwitch" javaType="java.lang.String"/>				
+	  <result property="buttonSwitch" column="buttonSwitch" javaType="java.lang.String"/>	
+	</resultMap>
+	
+	<select id="getSwitchStatus" parameterType="HashMap" resultMap="switchMap">
+		select t.float_switch as floatSwitch,t.button_switch as buttonSwitch from T_FLOAT_SWITCH t where t.xcx_id = #{xcxId}
+	</select>
+	
+</mapper> 
